@@ -1,0 +1,41 @@
+{
+  "slug": "jev-agent-atc",
+  "packages": [
+    {
+      "id": "WP-01",
+      "title": "Domain model + tower engine",
+      "summary": "Pure typed state and tick engine (SPEC §4.1–4.2): initial state, advanceWork, decisionsNeeded, applyActions, startAssigned, agentsOf, zoneOf, holdKeyOf, visibleEdges, unfinishedDeps. No Jev calls, no I/O. Paths are relative to apps/jev-agent-atc/.",
+      "owns": ["src/domain/**"],
+      "dependsOn": [],
+      "acceptance": ["AC-01", "AC-02", "AC-03", "AC-04", "AC-05"],
+      "agent": "implementer"
+    },
+    {
+      "id": "WP-02",
+      "title": "Jev policy layer + simulated resolvers + route",
+      "summary": "SPEC §4.3 and §5: System One questions (choice/noul/score), toJevState/buildRequest, POLICY thresholds + interpret + fallbackActions, scripted atcResolvers/createAtcProvider, decideNeed, and the live-swap route. Imports only types from src/domain (never engine).",
+      "owns": ["src/jev/**", "app/api/jev/route.ts"],
+      "dependsOn": [],
+      "acceptance": ["AC-06", "AC-07", "AC-08", "AC-09"],
+      "agent": "implementer"
+    },
+    {
+      "id": "WP-03",
+      "title": "Control-tower UI",
+      "summary": "SPEC §4.5 and §6: selectors, layout, TowerCanvas (gates, aircraft cards, routing edges with probability badges, dependency lanes, holding pattern, retry loop, runway, human pad), DecisionSpotlight/SharedStatePanel, ControlTower wiring useScenarioPlayer + ScenarioControls + DecisionLogPanel, tower.css. Built against the domain types and fixture runs; owns the visual e2e checks.",
+      "owns": ["src/components/**"],
+      "dependsOn": [],
+      "acceptance": ["AC-16", "AC-17", "AC-18", "AC-20", "AC-21"],
+      "agent": "implementer"
+    },
+    {
+      "id": "WP-04",
+      "title": "Scenario runner + page integration",
+      "summary": "SPEC §4.4, §4.6 and §7: SCENARIO config, captions, runScenario (virtual clock + createJev + engine loop), parsePlayerParams, and app/page.tsx rendering DemoShell + ControlTower. Verifies the 30 s story end to end.",
+      "owns": ["src/scenario/**", "app/page.tsx"],
+      "dependsOn": ["WP-01", "WP-02", "WP-03"],
+      "acceptance": ["AC-10", "AC-11", "AC-12", "AC-13", "AC-14", "AC-15", "AC-19", "AC-22"],
+      "agent": "implementer"
+    }
+  ]
+}
