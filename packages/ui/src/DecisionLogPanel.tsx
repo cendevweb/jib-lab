@@ -12,13 +12,19 @@ export function summarize(record: DecisionRecord): string {
     .join(" · ");
 }
 
-/** Audit trail of Jev decisions, newest first. */
+/**
+ * Audit trail of Jev decisions, newest first.
+ * `summarize` overrides the one-line answer summary (default: `summarize` above, which prints
+ * the entropy `confidence` for choices; apps that show option probabilities pass their own).
+ */
 export function DecisionLogPanel({
   records,
   limit = 20,
+  summarize: summarizeFn = summarize,
 }: {
   records: readonly DecisionRecord[];
   limit?: number;
+  summarize?: (record: DecisionRecord) => string;
 }) {
   const shown = [...records].reverse().slice(0, limit);
   return (
@@ -26,7 +32,7 @@ export function DecisionLogPanel({
       {shown.map((r) => (
         <li key={r.id} className="jib-log__item" data-decision={r.name}>
           <strong>{r.name}</strong>
-          <span>{summarize(r)}</span>
+          <span>{summarizeFn(r)}</span>
           <span className="jib-log__meta">
             {r.id} · {r.provider} · {(r.at / 1000).toFixed(1)}s
             {Object.entries(r.tags).map(([k, v]) => ` · ${k}:${v}`)}

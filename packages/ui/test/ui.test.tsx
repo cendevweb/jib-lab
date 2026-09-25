@@ -64,6 +64,20 @@ describe("DecisionLogPanel", () => {
     const items = screen.getByTestId("decision-log").querySelectorAll("li");
     expect(items[0]?.getAttribute("data-decision")).toBe("second");
   });
+  it("uses the default summary when no summarize prop is given", () => {
+    render(<DecisionLogPanel records={[rec]} />);
+    expect(screen.getByText("next=research 82% · retry=no 23% · sev=1.5")).toBeTruthy();
+  });
+  it("uses a custom summarize prop instead of the default summary", () => {
+    const custom = (r: DecisionRecord) => `custom:${r.id}:${r.name}`;
+    render(
+      <DecisionLogPanel records={[rec, { ...rec, id: "d2", name: "second" }]} summarize={custom} />,
+    );
+    const items = screen.getByTestId("decision-log").querySelectorAll("li");
+    expect(items[0]?.textContent).toContain("custom:d2:second");
+    expect(items[1]?.textContent).toContain("custom:d1:route");
+    expect(screen.queryByText("next=research 82% · retry=no 23% · sev=1.5")).toBeNull();
+  });
 });
 
 describe("useScenarioPlayer", () => {
