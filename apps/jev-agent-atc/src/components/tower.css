@@ -1,1 +1,759 @@
-/* Control-tower styles (WP-03). Intentionally empty in the harness stub (SPEC §9.2). */
+/* Control tower (WP-03). Dark theme on top of @jib/ui tokens.
+ * The canvas is a 960×600 logical field: `--u` = one logical px, derived from the canvas width
+ * with container units, so the whole tower scales from 1440 px down to 390 px phones.
+ * Positions come from inline `--x/--y/--w/--h` (logical px). */
+
+/* ---------- page layout ---------- */
+.atc-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 420px;
+  gap: 16px;
+  align-items: start;
+}
+.atc-main {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+.atc-side {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+@media (max-width: 1180px) {
+  .atc-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- canvas ---------- */
+.atc-tower {
+  --atc-grid: color-mix(in srgb, var(--jib-border) 45%, transparent);
+  position: relative;
+  width: 100%;
+  aspect-ratio: 960 / 600;
+  container-type: inline-size;
+  border: 1px solid var(--jib-border);
+  border-radius: var(--jib-radius);
+  overflow: hidden;
+  background:
+    radial-gradient(
+      ellipse at 45% 45%,
+      color-mix(in srgb, var(--jib-accent) 10%, transparent),
+      transparent 60%
+    ),
+    linear-gradient(var(--atc-grid) 1px, transparent 1px) 0 0 / 40px 40px,
+    linear-gradient(90deg, var(--atc-grid) 1px, transparent 1px) 0 0 / 40px 40px,
+    #080a0f;
+  color: var(--jib-text);
+  font-family: var(--jib-font);
+}
+.atc-stage {
+  --u: calc(100cqw / 960);
+  position: absolute;
+  inset: 0;
+  font-size: calc(11 * var(--u));
+}
+.atc-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+
+/* tone palette shared by edges, markers, badges, legend */
+.atc-tone-info,
+[data-tone="info"] {
+  --tone: var(--jib-info);
+}
+.atc-tone-ok,
+[data-tone="ok"] {
+  --tone: var(--jib-ok);
+}
+.atc-tone-warn,
+[data-tone="warn"] {
+  --tone: var(--jib-warn);
+}
+.atc-tone-danger,
+[data-tone="danger"] {
+  --tone: var(--jib-danger);
+}
+.atc-tone-accent,
+[data-tone="accent"] {
+  --tone: #b79cff;
+}
+.atc-tone-muted,
+[data-tone="muted"] {
+  --tone: var(--jib-muted);
+}
+.atc-marker path {
+  fill: var(--tone);
+}
+
+/* ---------- zones ---------- */
+.atc-zone,
+.atc-gate,
+.atc-caption {
+  position: absolute;
+  left: calc(var(--x) * var(--u));
+  top: calc(var(--y) * var(--u));
+  width: calc(var(--w) * var(--u));
+  height: calc(var(--h) * var(--u));
+}
+.atc-zone,
+.atc-gate {
+  border: 1px solid var(--jib-border);
+  border-radius: calc(10 * var(--u));
+  background: color-mix(in srgb, var(--jib-surface) 82%, transparent);
+}
+.atc-zone__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(6 * var(--u));
+  height: calc(28 * var(--u));
+  padding: 0 calc(10 * var(--u));
+  font: 700 calc(10 * var(--u)) var(--jib-mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--jib-muted);
+  border-bottom: 1px solid color-mix(in srgb, var(--jib-border) 70%, transparent);
+}
+.atc-zone__head b {
+  color: var(--jib-text);
+  font-weight: 700;
+}
+.atc-zone__head em {
+  font-style: normal;
+  color: var(--jib-accent);
+  margin-right: calc(4 * var(--u));
+}
+.atc-zone--approach {
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--jib-info) 6%, var(--jib-surface)),
+    color-mix(in srgb, var(--jib-surface) 82%, transparent)
+  );
+}
+.atc-legend {
+  position: absolute;
+  left: calc(10 * var(--u));
+  right: calc(10 * var(--u));
+  bottom: calc(10 * var(--u));
+  margin: 0;
+  padding: calc(8 * var(--u)) 0 0;
+  list-style: none;
+  display: grid;
+  gap: calc(4 * var(--u));
+  border-top: 1px solid var(--jib-border);
+  font: 500 calc(9 * var(--u)) var(--jib-mono);
+  color: var(--jib-muted);
+}
+.atc-legend li {
+  display: flex;
+  align-items: center;
+  gap: calc(6 * var(--u));
+}
+.atc-legend li::before {
+  content: "";
+  width: calc(16 * var(--u));
+  height: calc(3 * var(--u));
+  border-radius: 99px;
+  background: var(--tone);
+}
+
+/* gates */
+.atc-gate {
+  transition:
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+.atc-gate[data-status="busy"] {
+  border-color: color-mix(in srgb, var(--jib-info) 60%, var(--jib-border));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--jib-info) 25%, transparent),
+    0 0 calc(24 * var(--u)) color-mix(in srgb, var(--jib-info) 18%, transparent);
+}
+.atc-gate--review[data-status="busy"] {
+  border-color: color-mix(in srgb, var(--jib-warn) 60%, var(--jib-border));
+  box-shadow:
+    0 0 0 1px color-mix(in srgb, var(--jib-warn) 25%, transparent),
+    0 0 calc(24 * var(--u)) color-mix(in srgb, var(--jib-warn) 18%, transparent);
+}
+.atc-gate__state {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(4 * var(--u));
+  font-weight: 600;
+}
+.atc-gate__state::before {
+  content: "";
+  width: calc(7 * var(--u));
+  height: calc(7 * var(--u));
+  border-radius: 50%;
+  background: var(--jib-border);
+}
+.atc-gate[data-status="busy"] .atc-gate__state {
+  color: var(--jib-info);
+}
+.atc-gate[data-status="busy"] .atc-gate__state::before {
+  background: var(--jib-info);
+  box-shadow: 0 0 calc(8 * var(--u)) var(--jib-info);
+}
+.atc-gate--review[data-status="busy"] .atc-gate__state {
+  color: var(--jib-warn);
+}
+.atc-gate--review[data-status="busy"] .atc-gate__state::before {
+  background: var(--jib-warn);
+  box-shadow: 0 0 calc(8 * var(--u)) var(--jib-warn);
+}
+.atc-gate__stand {
+  position: absolute;
+  left: calc(16 * var(--u));
+  right: calc(16 * var(--u));
+  top: calc(34 * var(--u));
+  height: calc(60 * var(--u));
+  border: 1px dashed var(--jib-border);
+  border-radius: calc(8 * var(--u));
+}
+.atc-gate::after {
+  /* the gate "door" routing edges attach to */
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: calc(-3 * var(--u));
+  width: calc(28 * var(--u));
+  height: calc(5 * var(--u));
+  transform: translateX(-50%);
+  border-radius: 99px;
+  background: var(--jib-border);
+}
+.atc-gate--review::after {
+  left: calc(-3 * var(--u));
+  top: 50%;
+  bottom: auto;
+  width: calc(5 * var(--u));
+  height: calc(28 * var(--u));
+  transform: translateY(-50%);
+}
+.atc-gate[data-status="busy"]::after {
+  background: var(--jib-info);
+}
+.atc-gate--review[data-status="busy"]::after {
+  background: var(--jib-warn);
+}
+
+/* runway + human pad */
+.atc-runway {
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0 calc(20 * var(--u)),
+      color-mix(in srgb, var(--jib-ok) 30%, transparent) calc(20 * var(--u)) calc(44 * var(--u))
+    )
+    0 calc(92 * var(--u)) / calc(48 * var(--u)) calc(2 * var(--u)) repeat-x,
+    linear-gradient(180deg, #10141c, #0c1016);
+  border-color: color-mix(in srgb, var(--jib-ok) 30%, var(--jib-border));
+}
+.atc-runway .atc-zone__head b {
+  color: var(--jib-ok);
+}
+.atc-pad {
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      color-mix(in srgb, var(--jib-danger) 7%, transparent) 0 calc(8 * var(--u)),
+      transparent calc(8 * var(--u)) calc(16 * var(--u))
+    ),
+    color-mix(in srgb, var(--jib-surface) 82%, transparent);
+}
+.atc-pad[data-active="true"] {
+  border-color: var(--jib-danger);
+}
+.atc-pad[data-active="true"] .atc-zone__head b {
+  color: var(--jib-danger);
+}
+
+/* ---------- SVG: radar, holding, lanes, edges ---------- */
+.atc-radar__ring {
+  fill: none;
+  stroke: color-mix(in srgb, var(--jib-accent) 55%, transparent);
+  stroke-width: 1.2;
+}
+.atc-radar__ring--inner {
+  stroke: color-mix(in srgb, var(--jib-accent) 25%, transparent);
+  stroke-width: 1;
+}
+.atc-radar__cross {
+  stroke: color-mix(in srgb, var(--jib-accent) 18%, transparent);
+  stroke-width: 1;
+}
+.atc-radar__sweep {
+  fill: color-mix(in srgb, var(--jib-accent) 22%, transparent);
+}
+.atc-radar__beam {
+  stroke: var(--jib-accent);
+  stroke-width: 1.5;
+}
+.atc-radar__pulse {
+  fill: none;
+  stroke: var(--jib-accent);
+  stroke-width: 2;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: atc-pulse 0.9s ease-out both;
+}
+.atc-radar[data-deciding="true"] .atc-radar__ring:not(.atc-radar__ring--inner) {
+  stroke: var(--jib-accent);
+  stroke-width: 2;
+}
+.atc-radar text {
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+.atc-radar__title {
+  fill: var(--jib-text);
+  font: 800 20px var(--jib-mono);
+  letter-spacing: 0.12em;
+}
+.atc-radar__sub {
+  fill: var(--jib-accent);
+  font: 600 9px var(--jib-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.atc-radar__meta {
+  fill: var(--jib-muted);
+  font: 500 9.5px var(--jib-mono);
+}
+
+.atc-holding ellipse {
+  fill: color-mix(in srgb, var(--jib-warn) 4%, transparent);
+  stroke: color-mix(in srgb, var(--jib-warn) 45%, transparent);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 8;
+}
+.atc-holding[data-active="true"] ellipse {
+  stroke: var(--jib-warn);
+  fill: color-mix(in srgb, var(--jib-warn) 8%, transparent);
+}
+.atc-holding text {
+  text-anchor: middle;
+  dominant-baseline: middle;
+  font-family: var(--jib-mono);
+}
+.atc-holding__label {
+  fill: color-mix(in srgb, var(--jib-warn) 80%, transparent);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+}
+.atc-holding__count {
+  fill: var(--jib-muted);
+  font-size: 9px;
+}
+
+.atc-lane {
+  fill: none;
+  stroke-width: 1.6;
+  stroke-dasharray: 5 5;
+  stroke: color-mix(in srgb, var(--jib-muted) 55%, transparent);
+  transition: stroke 0.3s ease;
+}
+.atc-lane[data-state="blocked"] {
+  stroke: var(--jib-danger);
+  stroke-width: 2;
+  filter: drop-shadow(0 0 3px color-mix(in srgb, var(--jib-danger) 70%, transparent));
+}
+.atc-lane[data-state="done"] {
+  stroke: color-mix(in srgb, var(--jib-ok) 70%, transparent);
+}
+
+.atc-edge {
+  fill: none;
+  stroke: var(--tone);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  opacity: 0.55;
+}
+.atc-edge[data-fresh="true"] {
+  opacity: 1;
+  stroke-width: 3;
+  stroke-dasharray: 1;
+  filter: drop-shadow(0 0 4px var(--tone));
+  animation: atc-draw 0.45s ease-out both;
+}
+.atc-edge[data-fallback="true"] {
+  stroke-dasharray: 0.02 0.015;
+  animation: none;
+}
+
+.atc-retry-loop__ghost {
+  fill: none;
+  stroke: color-mix(in srgb, #b79cff 55%, transparent);
+  stroke-width: 1.5;
+  stroke-dasharray: 3 5;
+}
+.atc-retry-loop__disc {
+  fill: #0d0f18;
+  stroke: #b79cff;
+  stroke-width: 1.5;
+}
+.atc-retry-loop__icon {
+  --tone: #b79cff;
+  fill: none;
+  stroke: #b79cff;
+  stroke-width: 2;
+}
+.atc-retry-loop__text {
+  fill: #b79cff;
+  font: 700 10px var(--jib-mono);
+  paint-order: stroke;
+  stroke: #080a0f;
+  stroke-width: 3px;
+}
+
+/* ---------- aircraft (task cards) ---------- */
+.atc-card {
+  --tone: var(--jib-muted);
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+  width: calc(148 * var(--u));
+  height: calc(60 * var(--u));
+  transform: translate(calc(var(--x) * var(--u)), calc(var(--y) * var(--u)));
+  transition:
+    transform 0.4s cubic-bezier(0.3, 0.7, 0.2, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+  display: grid;
+  grid-template-rows: auto auto auto 1fr;
+  gap: calc(2 * var(--u));
+  padding: calc(5 * var(--u)) calc(8 * var(--u)) calc(4 * var(--u)) calc(10 * var(--u));
+  border: 1px solid color-mix(in srgb, var(--tone) 55%, var(--jib-border));
+  border-left: calc(4 * var(--u)) solid var(--tone);
+  border-radius: calc(8 * var(--u));
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--tone) 12%, var(--jib-surface-2)),
+    var(--jib-surface)
+  );
+  box-shadow: 0 calc(6 * var(--u)) calc(16 * var(--u)) rgb(0 0 0 / 0.45);
+  overflow: hidden;
+  will-change: transform;
+}
+.atc-card[data-orbit="true"] {
+  transition:
+    transform 0.12s linear,
+    border-color 0.3s ease;
+}
+.atc-card[data-status="running"],
+.atc-card[data-status="queued"][data-agent]:not([data-agent=""]) {
+  --tone: var(--jib-info);
+}
+.atc-card[data-status="running"][data-stage="investigate"],
+.atc-card[data-status="retrying"] {
+  --tone: #b79cff;
+}
+.atc-card[data-status="blocked"] {
+  --tone: var(--jib-danger);
+  border-style: dashed;
+  border-left-style: solid;
+}
+.atc-card[data-status="blocked"][data-agent=""] {
+  --tone: var(--jib-warn);
+}
+.atc-card[data-status="review"] {
+  --tone: var(--jib-warn);
+}
+.atc-card[data-status="done"] {
+  --tone: var(--jib-ok);
+}
+.atc-card[data-status="failed"],
+.atc-card[data-status="escalated"] {
+  --tone: var(--jib-danger);
+}
+.atc-card[data-status="failed"] {
+  animation: atc-flash 0.5s ease-in-out infinite alternate;
+}
+.atc-card[data-routed="true"] {
+  box-shadow:
+    0 0 0 calc(2 * var(--u)) color-mix(in srgb, var(--tone) 70%, transparent),
+    0 0 calc(22 * var(--u)) color-mix(in srgb, var(--tone) 45%, transparent);
+}
+.atc-card__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(4 * var(--u));
+  min-width: 0;
+}
+.atc-card__id {
+  font: 700 calc(10.5 * var(--u)) var(--jib-mono);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.atc-card__attempt {
+  flex: none;
+  font: 800 calc(10 * var(--u)) var(--jib-mono);
+  color: #b79cff;
+}
+.atc-card__title {
+  font-size: calc(9.5 * var(--u));
+  color: var(--jib-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.atc-chip {
+  flex: none;
+  padding: 0 calc(5 * var(--u));
+  border-radius: 99px;
+  font: 700 calc(8.5 * var(--u)) / 1.5 var(--jib-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--tone);
+  background: color-mix(in srgb, var(--tone) 16%, transparent);
+}
+.atc-card__prog {
+  font: 500 calc(8.5 * var(--u)) var(--jib-mono);
+  color: var(--jib-muted);
+  white-space: nowrap;
+}
+.atc-card__bar {
+  align-self: end;
+  height: calc(3 * var(--u));
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--jib-border) 70%, transparent);
+  overflow: hidden;
+}
+.atc-card__bar > span {
+  display: block;
+  height: 100%;
+  background: var(--tone);
+  transition: width 0.4s ease;
+}
+
+/* ---------- probability badges on routing edges ---------- */
+.atc-edge-label {
+  --tone: var(--jib-muted);
+  position: absolute;
+  z-index: 3;
+  left: calc(var(--x) * var(--u));
+  top: calc(var(--y) * var(--u));
+  transform: translate(-50%, -50%);
+  padding: calc(2 * var(--u)) calc(7 * var(--u));
+  border-radius: 99px;
+  border: 1px solid var(--tone);
+  background: color-mix(in srgb, var(--tone) 18%, #0b0d12);
+  color: var(--tone);
+  font: 700 calc(11 * var(--u)) / 1.3 var(--jib-mono);
+  white-space: nowrap;
+  opacity: 0.72;
+  pointer-events: auto;
+}
+.atc-edge-label[data-on-card="true"] {
+  font-size: calc(9.5 * var(--u));
+}
+.atc-edge-label[data-fresh="true"] {
+  opacity: 1;
+  box-shadow: 0 0 calc(14 * var(--u)) color-mix(in srgb, var(--tone) 55%, transparent);
+  animation: atc-pop 0.35s ease-out both;
+}
+.atc-edge-label[data-fallback="true"] {
+  border-style: dashed;
+}
+
+/* ---------- caption overlay ---------- */
+.atc-caption {
+  --tone: var(--jib-muted);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: calc(4 * var(--u));
+  padding: 0 calc(14 * var(--u));
+  border-left: calc(3 * var(--u)) solid var(--tone);
+  background: linear-gradient(90deg, rgb(8 10 15 / 0.85), rgb(8 10 15 / 0.35));
+  pointer-events: none;
+}
+.atc-caption__tag {
+  font: 700 calc(9.5 * var(--u)) var(--jib-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tone);
+}
+.atc-caption__text {
+  margin: 0;
+  font: 700 calc(19 * var(--u)) / 1.25 var(--jib-font);
+  color: var(--jib-text);
+  text-shadow: 0 1px 12px rgb(0 0 0 / 0.8);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  animation: atc-caption-in 0.35s ease-out both;
+}
+
+/* ---------- sidebar ---------- */
+.atc-panel--spotlight {
+  min-height: 250px;
+}
+.atc-spotlight {
+  display: grid;
+  gap: 10px;
+}
+.atc-spotlight__waiting {
+  margin: 0;
+  color: var(--jib-muted);
+  font: 500 13px var(--jib-mono);
+}
+.atc-spotlight__head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.atc-spotlight__name {
+  font: 800 13px var(--jib-mono);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--jib-accent);
+}
+.atc-spotlight__name[data-kind="failure"] {
+  color: var(--jib-danger);
+}
+.atc-spotlight__name[data-kind="completion"] {
+  color: var(--jib-ok);
+}
+.atc-spotlight__name[data-kind="impact"] {
+  color: var(--jib-warn);
+}
+.atc-spotlight__task {
+  font: 700 13px var(--jib-mono);
+}
+.atc-spotlight__meta {
+  margin-left: auto;
+  font: 500 11px var(--jib-mono);
+  color: var(--jib-muted);
+}
+.atc-spotlight__answer {
+  display: grid;
+  gap: 4px;
+}
+.atc-spotlight__question {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 12px;
+}
+.atc-spotlight__question code {
+  font: 700 12px var(--jib-mono);
+}
+.atc-spotlight__type {
+  font: 500 10px var(--jib-mono);
+  color: var(--jib-muted);
+  text-transform: uppercase;
+}
+.atc-spotlight__headline {
+  margin-left: auto;
+  font: 700 12px var(--jib-mono);
+  color: var(--jib-accent);
+}
+.atc-spotlight .jib-probs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.atc-state {
+  margin: 0;
+  max-height: 190px;
+  overflow: auto;
+  padding: 8px;
+  border-radius: 8px;
+  background: #07090d;
+  border: 1px solid var(--jib-border);
+  font: 500 11px / 1.45 var(--jib-mono);
+  color: color-mix(in srgb, var(--jib-info) 70%, var(--jib-text));
+  white-space: pre;
+}
+.atc-panel--log .jib-log {
+  max-height: 250px;
+}
+
+/* ---------- motion ---------- */
+@keyframes atc-flash {
+  from {
+    box-shadow: 0 0 0 calc(2 * var(--u)) color-mix(in srgb, var(--jib-danger) 30%, transparent);
+    background: color-mix(in srgb, var(--jib-danger) 14%, var(--jib-surface));
+  }
+  to {
+    box-shadow:
+      0 0 0 calc(3 * var(--u)) var(--jib-danger),
+      0 0 calc(26 * var(--u)) var(--jib-danger);
+    background: color-mix(in srgb, var(--jib-danger) 38%, var(--jib-surface));
+  }
+}
+@keyframes atc-pulse {
+  from {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  to {
+    transform: scale(1.45);
+    opacity: 0;
+  }
+}
+@keyframes atc-draw {
+  from {
+    stroke-dashoffset: 1;
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes atc-pop {
+  from {
+    transform: translate(-50%, -50%) scale(0.6);
+    opacity: 0;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(1);
+    opacity: 1;
+  }
+}
+@keyframes atc-caption-in {
+  from {
+    opacity: 0;
+    transform: translateY(calc(6 * var(--u)));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atc-card,
+  .atc-card__bar > span,
+  .atc-gate,
+  .atc-lane {
+    transition: none;
+  }
+  .atc-card[data-status="failed"],
+  .atc-edge[data-fresh="true"],
+  .atc-edge-label[data-fresh="true"],
+  .atc-radar__pulse,
+  .atc-caption__text {
+    animation: none;
+  }
+  .atc-edge[data-fresh="true"] {
+    stroke-dasharray: none;
+  }
+  .atc-card[data-status="failed"] {
+    background: color-mix(in srgb, var(--jib-danger) 30%, var(--jib-surface));
+  }
+}
