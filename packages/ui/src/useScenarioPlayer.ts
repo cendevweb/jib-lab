@@ -1,3 +1,5 @@
+"use client";
+
 import { initialPlayback, type Playback, type Timeline, tick } from "@jib/demo-kit";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 

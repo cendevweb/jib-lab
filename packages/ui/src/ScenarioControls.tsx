@@ -1,3 +1,5 @@
+"use client";
+
 import type { ScenarioPlayer } from "./useScenarioPlayer";
 
 const SPEEDS = [0.5, 1, 2, 4] as const;
