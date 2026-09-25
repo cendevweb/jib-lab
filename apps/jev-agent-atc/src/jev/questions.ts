@@ -1,6 +1,6 @@
 /**
  * The five System One questions Jev answers (SPEC §4.3, §5).
- * Harness: these are contract data (labels/levels/order from SPEC §5); WP-02 may polish wording.
+ * Labels, levels and order are contract data (SPEC §5).
  */
 import {
   type ChoiceQuestion,
@@ -52,6 +52,16 @@ export const RISK: ScoreQuestion = score("How risky is merging the focus task wi
   "high: data/payment path or previously failing code",
 ]);
 
-export function questionsFor(_kind: DecisionKind): Questions {
-  throw new Error("not implemented: questionsFor");
+/** The questions asked for each decision kind (`dispatch` carries two in one request). */
+export function questionsFor(kind: DecisionKind): Questions {
+  switch (kind) {
+    case "dispatch":
+      return { assignee: ASSIGNEE, parallelSafe: PARALLEL_SAFE };
+    case "failure":
+      return { onFailure: ON_FAILURE };
+    case "impact":
+      return { blocked: BLOCKED };
+    case "completion":
+      return { risk: RISK };
+  }
 }
