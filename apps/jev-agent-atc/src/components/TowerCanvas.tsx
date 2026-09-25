@@ -250,7 +250,12 @@ export function TowerCanvas({ frame, t }: { frame: TowerFrame; t: number }): Rea
   const orbitOffset = r2(-((t % HOLD_PERIOD_MS) / HOLD_PERIOD_MS) * perimeter);
 
   return (
-    <div className="atc-tower" data-testid="tower" data-tick={frame.tick}>
+    <section
+      className="atc-tower"
+      data-testid="tower"
+      data-tick={frame.tick}
+      aria-label="Control tower"
+    >
       <div className="atc-stage">
         {/* Layer 1 — zones */}
         <div className="atc-zone atc-zone--approach" style={rectVars(APPROACH_RECT)}>
@@ -439,6 +444,7 @@ export function TowerCanvas({ frame, t }: { frame: TowerFrame; t: number }): Rea
         })}
         <div
           className="atc-caption"
+          aria-live="polite"
           data-tone={captionTone(frame.caption)}
           style={rectVars(CAPTION_RECT)}
         >
@@ -448,6 +454,6 @@ export function TowerCanvas({ frame, t }: { frame: TowerFrame; t: number }): Rea
           </p>
         </div>
       </div>
-    </div>
+    </section>
   );
 }

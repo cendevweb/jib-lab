@@ -39,6 +39,7 @@ export function ScenarioControls({ player }: { player: ScenarioPlayer<unknown> }
       <div
         className="jib-progress"
         role="progressbar"
+        aria-label="Scenario progress"
         aria-valuemin={0}
         aria-valuemax={Math.round(player.duration)}
         aria-valuenow={Math.round(player.t)}

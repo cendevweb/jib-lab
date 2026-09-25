@@ -13,7 +13,7 @@
       "concept": "AI / Data",
       "shared": ["jev"],
       "port": 3101,
-      "phase": "spec",
+      "phase": "done",
       "app": "apps/jev-agent-atc"
     },
     {
