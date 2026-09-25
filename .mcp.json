@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@playwright/mcp@0.0.82",
+        "--headless",
+        "--isolated",
+        "--viewport-size",
+        "1440,900",
+        "--executable-path",
+        "${JIB_CHROMIUM_PATH:-/opt/pw-browsers/chromium}"
+      ]
+    }
+  }
+}

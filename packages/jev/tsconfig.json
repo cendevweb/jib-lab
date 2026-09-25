@@ -1,0 +1,4 @@
+{
+  "extends": "@jib/tsconfig/library.json",
+  "include": ["src", "test"]
+}

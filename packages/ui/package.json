@@ -1,0 +1,32 @@
+{
+  "name": "@jib/ui",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared React building blocks for recordable demos: shell, scenario player, Jev probability bars, decision log.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles.css"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@jib/demo-kit": "workspace:*",
+    "@jib/jev": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@jib/tsconfig": "workspace:*",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "jsdom": "^26.1.0",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  }
+}

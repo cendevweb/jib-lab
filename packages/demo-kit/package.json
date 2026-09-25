@@ -1,0 +1,17 @@
+{
+  "name": "@jib/demo-kit",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Framework-agnostic helpers for recordable, deterministic demos: seeded RNG, virtual clock, scripted scenario timelines.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "devDependencies": {
+    "@jib/tsconfig": "workspace:*"
+  }
+}

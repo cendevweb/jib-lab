@@ -1,0 +1,29 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "jib-lab work plan",
+  "type": "object",
+  "required": ["slug", "packages"],
+  "properties": {
+    "slug": { "type": "string" },
+    "packages": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "owns", "dependsOn", "acceptance", "agent"],
+        "properties": {
+          "id": { "type": "string", "pattern": "^WP-\\d{2}$" },
+          "title": { "type": "string" },
+          "summary": { "type": "string" },
+          "owns": { "type": "array", "items": { "type": "string" }, "minItems": 1 },
+          "dependsOn": { "type": "array", "items": { "type": "string" } },
+          "acceptance": {
+            "type": "array",
+            "items": { "type": "string", "pattern": "^AC-\\d{2,}$" }
+          },
+          "agent": { "enum": ["implementer"] }
+        }
+      }
+    }
+  }
+}

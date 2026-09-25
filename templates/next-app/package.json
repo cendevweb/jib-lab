@@ -1,0 +1,30 @@
+{
+  "name": "@jib-app/__SLUG__",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "next dev --port __PORT__",
+    "build": "next build",
+    "start": "next start --port __PORT__",
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "test:e2e": "playwright test"
+  },
+  "dependencies": {
+    "@jib/demo-kit": "workspace:*",
+    "@jib/jev": "workspace:*",
+    "@jib/ui": "workspace:*",
+    "next": "16.3.6",
+    "react": "19.3.0",
+    "react-dom": "19.3.0"
+  },
+  "devDependencies": {
+    "@jib/tsconfig": "workspace:*",
+    "@playwright/test": "1.56.1",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "jsdom": "^26.1.0"
+  }
+}

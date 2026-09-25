@@ -1,0 +1,22 @@
+{
+  "name": "@jib/jev",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Shared Jev (TypeSafe System One) decision layer: typed questions, live + simulated providers, audit log, Next.js route bridge.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./server": "./src/server.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@typesafe-ai/sdk": "0.6.0",
+    "zod": "^4.1.0"
+  },
+  "devDependencies": {
+    "@jib/tsconfig": "workspace:*"
+  }
+}

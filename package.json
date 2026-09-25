@@ -1,0 +1,28 @@
+{
+  "name": "jib-lab",
+  "private": true,
+  "description": "Monorepo of social-post demo projects (Corvus Interactive).",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "type": "module",
+  "scripts": {
+    "typecheck": "pnpm -r --if-present typecheck",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "test": "pnpm -r --if-present test",
+    "test:e2e": "pnpm -r --if-present test:e2e",
+    "build": "pnpm -r --if-present build",
+    "verify": "node scripts/verify.mjs",
+    "new-project": "node scripts/new-project.mjs",
+    "projects": "node scripts/projects.mjs"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.14",
+    "@playwright/test": "1.56.1",
+    "@types/node": "^22.10.0",
+    "typescript": "5.9.3",
+    "vitest": "^3.2.4"
+  }
+}

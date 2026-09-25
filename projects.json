@@ -1,0 +1,160 @@
+{
+  "$comment": "Registry of jib-lab projects. Source of truth for ideas: Notion 'Social Post Ideas' (collection://64829b78-88ee-4fa9-bae4-9601a18ffb6e). 'phase' is the local workflow phase; Notion 'Status' is the publishing status.",
+  "notion": {
+    "database": "https://app.notion.com/p/2706423825ba4850b9ac29ce3ee7b2ae",
+    "dataSource": "collection://64829b78-88ee-4fa9-bae4-9601a18ffb6e"
+  },
+  "phases": ["not-started", "spec", "tests", "harness", "implement", "review", "done"],
+  "projects": [
+    {
+      "slug": "jev-agent-atc",
+      "title": "Jev Agent Air-Traffic Controller",
+      "notion": "https://app.notion.com/p/3e529c70962581eea85dd2db96b1f204",
+      "concept": "AI / Data",
+      "shared": ["jev"],
+      "port": 3101,
+      "phase": "not-started",
+      "app": null
+    },
+    {
+      "slug": "jev-confidence-router",
+      "title": "Jev Confidence Router",
+      "notion": "https://app.notion.com/p/3e529c709625811a97faff73212776a1",
+      "concept": "AI / Data",
+      "shared": ["jev"],
+      "port": 3102,
+      "phase": "not-started",
+      "app": null
+    },
+    {
+      "slug": "jev-error-recovery",
+      "title": "Jev Autonomous Error Recovery",
+      "notion": "https://app.notion.com/p/3e529c70962581a0948bfae828862a29",
+      "concept": "AI / Data",
+      "shared": ["jev"],
+      "port": 3103,
+      "phase": "not-started",
+      "app": null
+    },
+    {
+      "slug": "jev-feature-flags",
+      "title": "Jev Dynamic Feature Flags",
+      "notion": "https://app.notion.com/p/3e529c70962581dc901cc7309e7ff1a2",
+      "concept": "AI / Data",
+      "shared": ["jev"],
+      "port": 3104,
+      "phase": "not-started",
+      "app": null
+    },
+    {
+      "slug": "jev-predictive-prefetch",
+      "title": "Jev Predictive Prefetch + Journey Memory",
+      "notion": "https://app.notion.com/p/3e529c70962581e28fbccabca494b2f9",
+      "concept": "AI / Data",
+      "shared": ["jev"],
+      "port": 3105,
+      "phase": "not-started",
+      "app": null
+    },
+    {
+      "slug": "messy-csv-dashboard",
+      "title": "Messy CSV → Generated React Dashboard",
+      "notion": "https://app.notion.com/p/3e529c7096258113bd33de69d79c6208",
+      "concept": "AI / Data",
+      "shared": [],
+      "port": 3106,
+      "phase": "not-started",
+      "app": null
+    },
+    {
+      "slug": "react-torture-test",
+      "title": "React Torture Test",
+      "notion": "https://app.notion.com/p/3e529c709625811795dbff92d699c68a",
+      "concept": "Devtool",
+      "shared": [],
+      "port": 3107,
+      "phase": "not-started",
+      "app": null
+    },
+    {
+      "slug": "privacy-spotlight",
+      "title": "Privacy Spotlight",
+      "notion": "https://app.notion.com/p/3e529c7096258143bfd1f27ced813a46",
+      "concept": "Productivity",
+      "shared": [],
+      "port": 3108,
+      "phase": "not-started",
+      "app": null
+    },
+    {
+      "slug": "semantic-zoom-dashboard",
+      "title": "Semantic Zoom Dashboard",
+      "notion": "https://app.notion.com/p/3e529c709625814bba39e77c30a78ba7",
+      "concept": "Productivity",
+      "shared": [],
+      "port": 3109,
+      "phase": "not-started",
+      "app": null
+    },
+    {
+      "slug": "brand-room-generator",
+      "title": "Brand Room Generator",
+      "notion": "https://app.notion.com/p/3e529c7096258195afd4c5bc2a07f360",
+      "concept": "Creative generator",
+      "shared": [],
+      "port": 3110,
+      "phase": "not-started",
+      "app": null
+    },
+    {
+      "slug": "ui-time-machine",
+      "title": "UI Time Machine",
+      "notion": "https://app.notion.com/p/3e529c70962581b292ecc2ee7892a1bd",
+      "concept": "Devtool",
+      "shared": [],
+      "port": 3111,
+      "phase": "not-started",
+      "app": null
+    },
+    {
+      "slug": "react-exploded-view",
+      "title": "React Exploded View",
+      "notion": "https://app.notion.com/p/3e529c70962581c5b2c5c84655911a90",
+      "concept": "Devtool",
+      "shared": [],
+      "port": 3112,
+      "phase": "not-started",
+      "app": null
+    },
+    {
+      "slug": "smart-form-autocomplete",
+      "title": "Database-Aware Smart Form Autocomplete",
+      "notion": "https://app.notion.com/p/3e529c70962581d9b29be5f2b1c2590e",
+      "concept": "Productivity",
+      "shared": [],
+      "port": 3113,
+      "phase": "not-started",
+      "app": null
+    },
+    {
+      "slug": "responsive-failure-map",
+      "title": "Responsive Failure Map",
+      "notion": "https://app.notion.com/p/3e529c70962581e5b5e6caefbd3279c6",
+      "concept": "Devtool",
+      "shared": [],
+      "port": 3114,
+      "phase": "not-started",
+      "app": null
+    },
+    {
+      "slug": "design-dna",
+      "title": "Website → Usable React/Tailwind Design DNA",
+      "notion": "https://app.notion.com/p/3e529c70962581efb0e8d1da66d6423f",
+      "concept": "Browser tool",
+      "shared": [],
+      "port": 3115,
+      "phase": "not-started",
+      "app": null
+    }
+  ]
+}
