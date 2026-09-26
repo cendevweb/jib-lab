@@ -460,7 +460,11 @@
   padding: 14px 16px;
   border-radius: 12px;
   background:
-    radial-gradient(circle at 85% 0%, color-mix(in srgb, var(--jib-accent) 45%, transparent), transparent 60%),
+    radial-gradient(
+      circle at 85% 0%,
+      color-mix(in srgb, var(--jib-accent) 45%, transparent),
+      transparent 60%
+    ),
     linear-gradient(135deg, #243056, #151b2c);
   border: 1px solid color-mix(in srgb, var(--jib-accent) 30%, var(--jib-border));
 }
@@ -547,7 +551,7 @@
   border-radius: 6px;
   background: var(--jib-surface-2);
   border: 1px solid var(--jib-border);
-  font: 500 12.5px/1.5 var(--jib-mono);
+  font: 500 12.5px / 1.5 var(--jib-mono);
   word-break: break-all;
   overflow-wrap: anywhere;
 }
@@ -617,6 +621,9 @@
     text-transform: uppercase;
     letter-spacing: 0.05em;
     color: var(--jib-muted);
+  }
+  .dash-table td > span {
+    justify-self: start;
   }
   .dash-table td.dash-name {
     display: block;
