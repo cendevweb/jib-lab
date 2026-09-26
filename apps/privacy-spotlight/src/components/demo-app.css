@@ -1,0 +1,57 @@
+/* Page wiring + scripted tour (SPEC §4.9 / §6). */
+
+.ps-app {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scenario controls sit between the sticky toolbar and the wrapped dashboard. */
+.ps-tour-controls {
+  margin: 0 0 14px;
+}
+.ps-tour-controls .jib-controls {
+  margin: 0;
+}
+
+/* Ghost cursor: fixed, above the overlay and the sticky toolbar, never hit-tested.
+   The arrow tip (3, 2) of the 24 px glyph sits exactly on the translated point. */
+.ps-ghost {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+  width: 24px;
+  height: 24px;
+  margin: -2px 0 0 -3px;
+  pointer-events: none;
+  visibility: hidden;
+  will-change: transform;
+  filter: drop-shadow(0 2px 3px rgb(0 0 0 / 0.55));
+}
+.ps-ghost[data-placed="true"] {
+  visibility: visible;
+}
+.ps-ghost svg {
+  display: block;
+  fill: #ffffff;
+  stroke: #0b0d12;
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+}
+
+/* Hands-free recording: the real cursor is hidden while the tour is mounted. */
+body.ps-tour,
+body.ps-tour * {
+  cursor: none !important;
+}
+
+/* Page footer threat note. */
+.ps-threat {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--jib-muted);
+}
+.ps-threat strong {
+  color: var(--jib-text);
+}
