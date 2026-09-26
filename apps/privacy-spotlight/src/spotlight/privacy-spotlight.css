@@ -1,0 +1,4 @@
+/* Contract stub (harness). WP-02 implements per SPEC §4.6 "Styles".
+ * TRAP: write only the unprefixed `backdrop-filter` here. With both prefixed and unprefixed
+ * declarations, Next's CSS minifier keeps only `-webkit-backdrop-filter`, which Chromium
+ * ignores, so blur mode would show plaintext. */

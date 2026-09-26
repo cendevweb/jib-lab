@@ -13,7 +13,6 @@
   },
   "dependencies": {
     "@jib/demo-kit": "workspace:*",
-    "@jib/jev": "workspace:*",
     "@jib/ui": "workspace:*",
     "next": "16.3.6",
     "react": "19.3.0",

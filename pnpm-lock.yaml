@@ -69,9 +69,6 @@ importers:
       '@jib/demo-kit':
         specifier: workspace:*
         version: link:../../packages/demo-kit
-      '@jib/jev':
-        specifier: workspace:*
-        version: link:../../packages/jev
       '@jib/ui':
         specifier: workspace:*
         version: link:../../packages/ui
