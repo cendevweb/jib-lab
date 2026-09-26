@@ -642,3 +642,14 @@
     margin-left: 0;
   }
 }
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .tbar-switch,
+  .tbar-switch::after {
+    transition: none;
+  }
+  .dash-msg[data-new="true"] {
+    animation: none;
+  }
+}

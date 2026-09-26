@@ -85,15 +85,19 @@ export function Toolbar({ state, dispatch, hiddenCount }: ToolbarProps): ReactEl
           max={RADIUS_MAX}
           step={RADIUS_STEP}
           value={state.radius}
+          aria-valuetext={`${state.radius} pixels`}
           onChange={(e) => dispatch({ type: "setRadius", value: Number(e.target.value) })}
         />
-        <span className="tbar-radius-value">{state.radius}px</span>
+        <span className="tbar-radius-value" aria-hidden="true">
+          {state.radius}px
+        </span>
       </label>
 
       <div className="tbar-status">
         <span
           className="tbar-count"
           data-testid="hidden-count"
+          role="status"
           data-count={count}
           data-presenting={state.presenting}
         >

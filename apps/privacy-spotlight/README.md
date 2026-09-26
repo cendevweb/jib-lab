@@ -118,6 +118,9 @@ With `?tour=1`, the tour's first frame overrides `present` and `mode`.
 
 Checks: `pnpm verify privacy-spotlight` (test lock, acceptance coverage, typecheck, lint, unit, e2e).
 
+Live Jev: not applicable. This project makes no probabilistic decision (SPEC §5), so it has no
+`app/api/jev` route and nothing to switch. It always runs offline on static fake data.
+
 ## Record the 15 s demo
 
 Use the production build (it has no dev overlay):
@@ -147,6 +150,22 @@ is hidden while the tour runs, and the ghost cursor drives the spotlight.
 For a "real hands" cut, open `/`, use your own mouse and follow the same beats.
 Stills: `/?tour=1&t=4500` (spotlight on a row), `/?tour=1&t=9500` (partial `•••• 4242`),
 `/?present=1&mode=blur` (frosted).
+
+## Screenshots
+
+Production build, 1440×900, headless Chromium. Files are in
+[`docs/screenshots/`](./docs/screenshots/).
+
+| | URL | What it shows |
+|---|---|---|
+| ![Dashboard, not presenting](./docs/screenshots/01-dashboard.png) | `/` | the dashboard before Presentation mode: all fake PII is readable |
+| ![Solid masks](./docs/screenshots/02-present-solid.png) | `/?present=1&mode=solid` | 35 labelled opaque masks. KPIs, plans, prices, dates and version stay readable |
+| ![Blur masks](./docs/screenshots/03-present-blur.png) | `/?present=1&mode=blur` | frosted masks (cosmetic) |
+| ![Partial masks](./docs/screenshots/04-present-partial.png) | `/?present=1&mode=partial` | only the last 4 characters stay visible (`4242`, `yR1c`, `.com`) |
+| ![Spotlight on the production key](./docs/screenshots/05-tour-spotlight-6000.png) | `/?tour=1&t=6000` | the ghost cursor on the production secret key. Only the circle is readable |
+| ![New ticket already masked](./docs/screenshots/06-tour-new-ticket-10500.png) | `/?tour=1&t=10500` | partial mode, the new ticket arrived already masked, `38 values hidden` |
+
+To regenerate them, start the production build and capture the same URLs at 1440×900.
 
 ## Draft X post
 

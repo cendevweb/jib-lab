@@ -4,24 +4,14 @@
     "database": "https://app.notion.com/p/2706423825ba4850b9ac29ce3ee7b2ae",
     "dataSource": "collection://64829b78-88ee-4fa9-bae4-9601a18ffb6e"
   },
-  "phases": [
-    "not-started",
-    "spec",
-    "tests",
-    "harness",
-    "implement",
-    "review",
-    "done"
-  ],
+  "phases": ["not-started", "spec", "tests", "harness", "implement", "review", "done"],
   "projects": [
     {
       "slug": "jev-agent-atc",
       "title": "Jev Agent Air-Traffic Controller",
       "notion": "https://app.notion.com/p/3e529c70962581eea85dd2db96b1f204",
       "concept": "AI / Data",
-      "shared": [
-        "jev"
-      ],
+      "shared": ["jev"],
       "port": 3101,
       "phase": "done",
       "app": "apps/jev-agent-atc"
@@ -31,9 +21,7 @@
       "title": "Jev Confidence Router",
       "notion": "https://app.notion.com/p/3e529c709625811a97faff73212776a1",
       "concept": "AI / Data",
-      "shared": [
-        "jev"
-      ],
+      "shared": ["jev"],
       "port": 3102,
       "phase": "not-started",
       "app": null
@@ -43,9 +31,7 @@
       "title": "Jev Autonomous Error Recovery",
       "notion": "https://app.notion.com/p/3e529c70962581a0948bfae828862a29",
       "concept": "AI / Data",
-      "shared": [
-        "jev"
-      ],
+      "shared": ["jev"],
       "port": 3103,
       "phase": "not-started",
       "app": null
@@ -55,9 +41,7 @@
       "title": "Jev Dynamic Feature Flags",
       "notion": "https://app.notion.com/p/3e529c70962581dc901cc7309e7ff1a2",
       "concept": "AI / Data",
-      "shared": [
-        "jev"
-      ],
+      "shared": ["jev"],
       "port": 3104,
       "phase": "not-started",
       "app": null
@@ -67,9 +51,7 @@
       "title": "Jev Predictive Prefetch + Journey Memory",
       "notion": "https://app.notion.com/p/3e529c70962581e28fbccabca494b2f9",
       "concept": "AI / Data",
-      "shared": [
-        "jev"
-      ],
+      "shared": ["jev"],
       "port": 3105,
       "phase": "not-started",
       "app": null
@@ -101,7 +83,7 @@
       "concept": "Productivity",
       "shared": [],
       "port": 3108,
-      "phase": "spec",
+      "phase": "done",
       "app": "apps/privacy-spotlight"
     },
     {

@@ -53,10 +53,16 @@
   box-shadow: inset 0 0 0 1px rgba(124, 156, 255, 0.18);
 }
 
-/* Blur: cosmetic (short values can be reconstructed). Unprefixed backdrop-filter only. */
+/* Blur: cosmetic (short values can be reconstructed). Unprefixed backdrop-filter only.
+ * TRAP: masks are ~20 px tall, far less than the blur kernel. Chromium's software compositor
+ * (headless recordings, no-GPU machines) samples transparent pixels outside the box, so the
+ * blurred layer is only ~50% opaque and the crisp text shows through it. Three zero-offset
+ * drop-shadows push the layer's alpha back to ~1; where the blur is already opaque they are
+ * invisible. */
 .ps-mask--blur {
   background: rgba(20, 24, 33, 0.35);
-  backdrop-filter: blur(14px) saturate(0.6);
+  backdrop-filter: blur(14px) saturate(0.6) drop-shadow(0 0 0 #141821) drop-shadow(0 0 0 #141821)
+    drop-shadow(0 0 0 #141821);
   color: rgba(232, 236, 244, 0.5);
 }
 
