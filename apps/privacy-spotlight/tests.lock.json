@@ -1,0 +1,18 @@
+{
+  "tests/e2e/helpers.ts": "c3df4d30fa3daeca57078b7ff170b68d801b933e32ed9d21f358b6430965c88f",
+  "tests/e2e/masking.spec.ts": "b1c7a61ac2c58f950e975b4fadc0c0a010839564699f9d2b3f1084d23197167e",
+  "tests/e2e/page.spec.ts": "68983f59f99e6e4aedaef98cc31e01cfc23a2f02ddbffc8ad9a77f44fe81cec8",
+  "tests/e2e/reveal.spec.ts": "9b49977529f159151eb590bf847edc8a2491a602c963af70e50a6436be05d962",
+  "tests/e2e/tour.spec.ts": "95d03b41453dd813eaeba7bb49f89258ad42d5e7626df6876ecb40c2a5a933bc",
+  "tests/unit/dashboard.test.tsx": "db596593dba9b21e33b0881b0c1f35537e3188be0338fe32956571cc05d81385",
+  "tests/unit/detectors.test.ts": "3075d85af6d6702006f495cc8a2a2f9eba4ea68bfc72503313379b88f205bbc4",
+  "tests/unit/fake-measure.ts": "6886d76e0dd83a7a5de44d7e1ce041c7ce7cdabcf14bd0e3e17005ed101c7ee2",
+  "tests/unit/geometry.test.ts": "19bb6c2fc6a4df1332e02ddebf42ef997ae3540707d409b4bb02e64992d80912",
+  "tests/unit/overlay.test.ts": "9a9f5365a0f985be70d491ea3b5a69977e21011c25dff07451ef614de428f13b",
+  "tests/unit/params.test.ts": "f91608abea4e110dd15c2387377f3a688dfcbf9edf213d55fae9f33f49ca7fa1",
+  "tests/unit/privacy-spotlight.test.tsx": "026ffad34191057dd82c7298c6c624a51648ffde2f96510d1de0f2685cd456e5",
+  "tests/unit/scanner.test.ts": "be76d730b0121d7803c7b4f1c3c79af45c4ede135fda839cb2ec6ed006dc0298",
+  "tests/unit/state.test.ts": "6a49c11e9fc04ee9775f962accbc92d45d4f3d07f9b15f7d4531d9af0a60c05f",
+  "tests/unit/toolbar.test.tsx": "408e1b8f0fcbc993933cbff52d6fbe5150997fb4979cdf24af702c321a77d43e",
+  "tests/unit/tour.test.ts": "982e62ad4ed2745a9f38f782bb6a4327d2ccf7a0dda49b43a8fb6ab8adc019d3"
+}
