@@ -1,0 +1,41 @@
+{
+  "slug": "privacy-spotlight",
+  "packages": [
+    {
+      "id": "WP-01",
+      "title": "Pure core: detectors, geometry, state, overlay, params",
+      "summary": "SPEC §4.1–4.5. src/core/types.ts and constants.ts exactly as §4.1 (harness pre-copies them); detectors.ts (5 detectors + luhnValid + mergeMatches + detect + partialRange, normative match tables), geometry.ts (rects, merge, circle hit-test, rect-local radial mask string), state.ts (clampRadius, createPrivacyState, privacyReducer, revealMode), overlay.ts (computeOverlay), params.ts (parseDemoParams). No DOM, no React, no Math.random/Date.now. Paths are relative to apps/privacy-spotlight/.",
+      "owns": ["src/core/**"],
+      "dependsOn": [],
+      "acceptance": ["AC-01", "AC-02", "AC-03", "AC-04", "AC-05", "AC-06", "AC-07", "AC-08"],
+      "agent": "implementer"
+    },
+    {
+      "id": "WP-02",
+      "title": "Reusable <PrivacySpotlight> component: DOM scanner, overlay, hook",
+      "summary": "SPEC §4.6 and §6. scanner.ts (TreeWalker over text nodes + [data-sensitive], Range rects via injectable measure, ignore rules, owners), usePrivacySpotlight.ts, PrivacySpotlight.tsx (sibling overlay, per-rect radial mask-image, mouse + window key listeners, fail-closed scanning: useLayoutEffect on present, MutationObserver + flushSync, rAF-throttled resize/scroll/fonts), privacy-spotlight.css (solid/blur/partial, reveal-all, ring, reduced motion), index.ts barrel. Imports only src/core. Owns the masking/reveal e2e criteria (verified by the reviewer once WP-03/WP-04 land).",
+      "owns": ["src/spotlight/**"],
+      "dependsOn": ["WP-01"],
+      "acceptance": ["AC-09", "AC-10", "AC-11", "AC-16", "AC-17", "AC-18", "AC-19", "AC-20"],
+      "agent": "implementer"
+    },
+    {
+      "id": "WP-03",
+      "title": "Demo content: fake SaaS dashboard + toolbar",
+      "summary": "SPEC §4.7 and §6. data.ts with the normative fake PII strings and expected counts (35/38), Dashboard.tsx (header strip, KPI row, customers table, billing card, API keys card, support inbox with inbox-add and controlled ticket prop; every value in its own testid span; data-sensitive on names/address/note), Toolbar.tsx (presentation toggle, mode buttons, spotlight toggle, radius slider, hidden-count, reveal hint), demo.css (2-column grid, no inner scrollers, mono tokens). Uses only types/constants from src/core (pre-copied by harness), never the spotlight component.",
+      "owns": ["src/demo/**"],
+      "dependsOn": [],
+      "acceptance": ["AC-12", "AC-13"],
+      "agent": "implementer"
+    },
+    {
+      "id": "WP-04",
+      "title": "Tour scenario + page integration + README",
+      "summary": "SPEC §4.8, §4.9, §7 and §10. src/scenario/tour.ts (TOUR_BEATS, TOUR_CURSOR, createTour via @jib/demo-kit, easeInOut, cursorAt); src/components/DemoApp.tsx (controller from params, Toolbar + PrivacySpotlight + Dashboard, ticket state, hidden count) and TourDriver.tsx (useScenarioPlayer + ScenarioControls, sync patches, ghost cursor, pointer dispatch inside privacy-root only); app/page.tsx (DemoShell, badge, threat-note footer, parseDemoParams); README.md (usage, threat model, limitations, recording steps). Builds against the WP-02 contract stubs; page e2e verified by the reviewer.",
+      "owns": ["src/scenario/**", "src/components/**", "app/page.tsx", "README.md"],
+      "dependsOn": ["WP-01", "WP-03"],
+      "acceptance": ["AC-14", "AC-15", "AC-21", "AC-22"],
+      "agent": "implementer"
+    }
+  ]
+}
